@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Inter_400Regular, Inter_700Bold } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
+import { Text } from '@components';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -43,7 +44,14 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text style={{ fontSize: 25, fontFamily: 'Inter_400Regular' }}>Hello World!</Text>
+      <Text
+        onPress={() => {
+          alert('hello');
+        }}
+        style={{ fontSize: 25 }}
+      >
+        Hello World!
+      </Text>
     </View>
   );
 }

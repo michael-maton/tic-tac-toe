@@ -19,7 +19,7 @@ export default function AppBootstrap({ children }: AppBootstrapProps): ReactElem
       try {
         // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync({ Inter_400Regular, Inter_700Bold });
-        await new Promise(resolve => setTimeout(resolve, 6000));
+        // await new Promise(resolve => setTimeout(resolve, 6000));
       } catch (e) {
         console.warn(e);
       } finally {
@@ -56,8 +56,8 @@ export default function AppBootstrap({ children }: AppBootstrapProps): ReactElem
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#fff'
+    // alignItems: 'center',
+    // justifyContent: 'center'
   }
 });

@@ -1,17 +1,11 @@
 import React, { ReactElement } from 'react';
-import { Text, AppBootstrap } from '@components';
+import { AppBootstrap } from '@components';
+import Navigator from '@config/navigator';
 
 export default function App(): ReactElement {
   return (
     <AppBootstrap>
-      <Text
-        onPress={() => {
-          alert('hello');
-        }}
-        style={{ fontSize: 25 }}
-      >
-        Hello World!
-      </Text>
+      <Navigator />
     </AppBootstrap>
   );
 }

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
-import { View, Text, Button } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import styles from './home.styles';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackNavigatorParams } from '@config/navigator';
+import { GradientBackground, Button } from '@components';
 
 type HomeProps = {
   navigation: StackNavigationProp<StackNavigatorParams, 'Home'>;
@@ -10,14 +11,16 @@ type HomeProps = {
 
 export default function Home({ navigation }: HomeProps): ReactElement {
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-      <Button
-        title='Game'
-        onPress={() => {
-          navigation.navigate('Game', { gameId: '21389' });
-        }}
-      />
-    </View>
+    <GradientBackground>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Image style={styles.logo} source={require('@assets/logo.png')} />
+        <View style={styles.buttons}>
+          <Button style={styles.button} title='Single Player' />
+          <Button style={styles.button} title='Multiplayer' />
+          <Button style={styles.button} title='Login' />
+          <Button style={styles.button} title='Settings' />
+        </View>
+      </ScrollView>
+    </GradientBackground>
   );
 }

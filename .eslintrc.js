@@ -23,6 +23,6 @@ module.exports = {
   },
   rules: {
     // '@typescript-eslint/no-unused-vars': 'off',
-    'no-console': 'warn'
+    // 'no-console': 'warn'
   }
 };

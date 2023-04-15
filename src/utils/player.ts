@@ -1,5 +1,5 @@
 import { BoardState } from './types';
-import { isTerminal, getAvailableMoves, printFormattedBoard } from './board';
+import { isTerminal, getAvailableMoves } from './board';
 
 export const getBestMove = (
   state: BoardState,
@@ -30,10 +30,7 @@ export const getBestMove = (
       getAvailableMoves(state).forEach(idx => {
         const child: BoardState = [...state];
         child[idx] = 'x';
-        console.log(`Child board (x turn) (depth: ${depth}`);
-        printFormattedBoard(child);
         const childValue = getBestMoveRecursive(child, false, depth + 1, maxDepth);
-        console.log('childValue', childValue);
         best = Math.max(best, childValue);
 
         if (depth === 0) {
@@ -42,8 +39,6 @@ export const getBestMove = (
             : `${idx}`;
         }
       });
-      console.log('best', best);
-      console.log('childValues', childValues);
       if (depth === 0) {
         const arr = childValues[best].split(',');
         const rand = Math.floor(Math.random() * arr.length);
@@ -55,10 +50,7 @@ export const getBestMove = (
       getAvailableMoves(state).forEach(idx => {
         const child: BoardState = [...state];
         child[idx] = 'o';
-        console.log(`Child board (o turn) (depth: ${depth}`);
-        printFormattedBoard(child);
         const childValue = getBestMoveRecursive(child, true, depth + 1, maxDepth);
-        console.log('childValue', childValue);
         best = Math.min(best, childValue);
 
         if (depth === 0) {
@@ -67,8 +59,6 @@ export const getBestMove = (
             : `${idx}`;
         }
       });
-      console.log('best', best);
-      console.log('childValues', childValues);
       if (depth === 0) {
         const arr = childValues[best].split(',');
         const rand = Math.floor(Math.random() * arr.length);

@@ -20,7 +20,7 @@ export default function GradientBackground({ children }: GradientBackgroundProps
           top: 0,
           bottom: 0
         }}
-        colors={[colors.lightBlue, colors.darkBlue]}
+        colors={[colors.lightBlue, colors.darkBlue].reverse()}
       />
       {children}
     </View>

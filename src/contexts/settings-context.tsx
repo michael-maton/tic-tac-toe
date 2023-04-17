@@ -1,13 +1,6 @@
-import React, {
-  ReactElement,
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-  useEffect
-} from 'react';
+import React, { ReactElement, ReactNode, createContext, useContext, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 const difficulty = {
   '1': 'Beginner',
@@ -52,7 +45,7 @@ function SettingsProvider(props: { children: ReactNode }): ReactElement {
       // throw new Error();
       const oldSettings = settings ? settings : defaultSettings;
       const newSettings = { ...oldSettings, [setting]: value };
-      await AsyncStorage.setItem('@settings', JSON.stringify(newSettings));
+      await SecureStore.setItemAsync('single-game-settings', JSON.stringify(newSettings));
       setSettings(newSettings);
     } catch (e) {
       console.log(e);
@@ -62,7 +55,7 @@ function SettingsProvider(props: { children: ReactNode }): ReactElement {
 
   const loadSettings = async () => {
     try {
-      const settings = await AsyncStorage.getItem('@settings');
+      const settings = await SecureStore.getItemAsync('single-game-settings');
       settings !== null ? setSettings(JSON.parse(settings)) : setSettings(defaultSettings);
     } catch (e) {
       setSettings(defaultSettings);

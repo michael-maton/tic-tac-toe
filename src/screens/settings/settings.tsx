@@ -37,11 +37,11 @@ export default function Settings(): ReactElement {
             <Text style={styles.label}>Sounds</Text>
             <Switch
               trackColor={{
-                false: colors.lightBlue,
+                false: colors.lightestBlue,
                 true: colors.darkBlue
               }}
               thumbColor={colors.blue}
-              ios_backgroundColor={colors.lightBlue}
+              ios_backgroundColor={colors.lightestBlue}
               value={state}
               onValueChange={() => setState(!state)}
             />
@@ -50,11 +50,11 @@ export default function Settings(): ReactElement {
             <Text style={styles.label}>Vibrations</Text>
             <Switch
               trackColor={{
-                false: colors.lightBlue,
+                false: colors.lightestBlue,
                 true: colors.darkBlue
               }}
               thumbColor={colors.blue}
-              ios_backgroundColor={colors.lightBlue}
+              ios_backgroundColor={colors.lightestBlue}
               value={state}
               onValueChange={() => setState(!state)}
             />

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   choice: {
-    backgroundColor: colors.lightBlue,
+    backgroundColor: colors.lightestBlue,
     padding: 10,
     borderRadius: 10,
     marginRight: 10,

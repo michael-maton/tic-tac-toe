@@ -102,6 +102,7 @@ export default function Game(): ReactElement {
             handleOnCellPressed(cell);
           }}
           state={state}
+          gameResult={gameResult}
           size={300}
         />
       </SafeAreaView>

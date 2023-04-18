@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { Inter_400Regular, Inter_700Bold } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
+import { Auth, Hub } from 'aws-amplify';
+import { useAuth } from '@contexts/auth-context';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -13,6 +15,41 @@ type AppBootstrapProps = {
 
 export default function AppBootstrap({ children }: AppBootstrapProps): ReactElement | null {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [authLoaded, setAuthLoaded] = useState(false);
+  const { setUser } = useAuth();
+
+  useEffect(() => {
+    async function checkUserLoggedIn() {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        setUser(user);
+      } catch (e) {
+        setUser(null);
+      }
+      setAuthLoaded(true);
+    }
+    checkUserLoggedIn();
+
+    function hubListener(hubData: any) {
+      const { data, event } = hubData.payload;
+      console.log(data);
+      switch (event) {
+        case 'signOut':
+          setUser(null);
+          break;
+        case 'signIn':
+          setUser(data);
+          break;
+        default:
+          break;
+      }
+    }
+    Hub.listen('auth', hubListener);
+
+    return () => {
+      Hub.remove('auth', hubListener);
+    };
+  }, []);
 
   useEffect(() => {
     async function prepare() {
@@ -48,7 +85,7 @@ export default function AppBootstrap({ children }: AppBootstrapProps): ReactElem
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      {children}
+      {authLoaded && children}
     </View>
   );
 }

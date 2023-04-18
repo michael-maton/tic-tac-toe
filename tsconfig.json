@@ -4,6 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "allowJs": true,
+    "useUnknownInCatchVariables": false,
     "paths": {
       "@assets/*": ["assets/*"],
       "@components": ["src/components"],

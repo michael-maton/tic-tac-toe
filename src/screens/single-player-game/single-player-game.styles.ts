@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   modal: {
     position: 'absolute',
     backgroundColor: colors.lightBlue,
-    bottom: -170,
+    bottom: 30,
     left: 30,
     right: 30,
     padding: 30,

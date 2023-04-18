@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { SafeAreaView, Dimensions, View, Text, ScrollView } from 'react-native';
+import { SafeAreaView, Dimensions, View, Text } from 'react-native';
 import { GradientBackground, Button } from '@components';
 import styles from './single-player-game.styles';
 import { Board } from '@components';
@@ -110,46 +110,44 @@ export default function Game(): ReactElement {
 
   return (
     <GradientBackground>
-      <ScrollView>
-        <SafeAreaView style={styles.container}>
-          <View>
-            <Text style={styles.difficulty}>Difficulty: {settings ? difficulty[settings.difficulty] : 'Hard'}</Text>
-            <View style={styles.results}>
-              <View style={styles.resultsBox}>
-                <Text style={styles.resultsTitle}>Wins</Text>
-                <Text style={styles.resultsCount}>{gamesCount.wins}</Text>
-              </View>
-              <View style={styles.resultsBox}>
-                <Text style={styles.resultsTitle}>Draws</Text>
-                <Text style={styles.resultsCount}>{gamesCount.draws}</Text>
-              </View>
-              <View style={styles.resultsBox}>
-                <Text style={styles.resultsTitle}>Losses</Text>
-                <Text style={styles.resultsCount}>{gamesCount.losses}</Text>
-              </View>
+      <SafeAreaView style={styles.container}>
+        <View>
+          <Text style={styles.difficulty}>Difficulty: {settings ? difficulty[settings.difficulty] : 'Hard'}</Text>
+          <View style={styles.results}>
+            <View style={styles.resultsBox}>
+              <Text style={styles.resultsTitle}>Wins</Text>
+              <Text style={styles.resultsCount}>{gamesCount.wins}</Text>
+            </View>
+            <View style={styles.resultsBox}>
+              <Text style={styles.resultsTitle}>Draws</Text>
+              <Text style={styles.resultsCount}>{gamesCount.draws}</Text>
+            </View>
+            <View style={styles.resultsBox}>
+              <Text style={styles.resultsTitle}>Losses</Text>
+              <Text style={styles.resultsCount}>{gamesCount.losses}</Text>
             </View>
           </View>
-          <Board
-            disabled={Boolean(isTerminal(state)) || turn !== 'HUMAN'}
-            onCellPressed={cell => {
-              handleOnCellPressed(cell);
-            }}
-            state={state}
-            gameResult={gameResult}
-            size={SCREEN_WIDTH - 60}
-          />
-          {gameResult && (
-            <View style={styles.modal}>
-              <Text style={styles.modalText}>
-                {getWinner(gameResult.winner) === 'HUMAN' && 'You Won!'}
-                {getWinner(gameResult.winner) === 'BOT' && 'You Lost!'}
-                {getWinner(gameResult.winner) === 'DRAW' && "It's a Draw"}
-              </Text>
-              <Button onPress={() => newGame()} title='Play Again' />
-            </View>
-          )}
-        </SafeAreaView>
-      </ScrollView>
+        </View>
+        <Board
+          disabled={Boolean(isTerminal(state)) || turn !== 'HUMAN'}
+          onCellPressed={cell => {
+            handleOnCellPressed(cell);
+          }}
+          state={state}
+          gameResult={gameResult}
+          size={SCREEN_WIDTH - 60}
+        />
+        {gameResult && (
+          <View style={styles.modal}>
+            <Text style={styles.modalText}>
+              {getWinner(gameResult.winner) === 'HUMAN' && 'You Won!'}
+              {getWinner(gameResult.winner) === 'BOT' && 'You Lost!'}
+              {getWinner(gameResult.winner) === 'DRAW' && "It's a Draw"}
+            </Text>
+            <Button onPress={() => newGame()} title='Play Again' />
+          </View>
+        )}
+      </SafeAreaView>
     </GradientBackground>
   );
 }

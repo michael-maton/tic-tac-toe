@@ -23,7 +23,7 @@ const navigatorOptions: StackNavigationOptions = {
   },
   headerTintColor: colors.lightestBlue,
   headerTitleStyle: {
-    // fontFamily: 'Inter_700Bold',
+    fontFamily: 'Inter_400Regular',
     fontSize: 22
   },
   headerBackTitleStyle: {
@@ -37,11 +37,7 @@ export default function Navigator(): ReactElement {
     <NavigationContainer>
       <Stack.Navigator screenOptions={navigatorOptions}>
         <Stack.Screen name='Home' options={{ headerShown: false }} component={Home} />
-        <Stack.Screen
-          name='SinglePlayerGame'
-          options={{ headerShown: false }}
-          component={SinglePlayerGame}
-        />
+        <Stack.Screen name='SinglePlayerGame' options={{ headerShown: false }} component={SinglePlayerGame} />
         <Stack.Screen name='Settings' component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>

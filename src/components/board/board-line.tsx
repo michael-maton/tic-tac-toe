@@ -1,24 +1,7 @@
 import React, { ReactElement, useRef, useEffect } from 'react';
-import { StyleSheet, Animated } from 'react-native';
-import { BoardResult, colors } from '@utils';
-
-const style = StyleSheet.create({
-  line: {
-    position: 'absolute',
-    backgroundColor: colors.gold
-  },
-  vertLine: {
-    width: 2
-  },
-  horizLine: {
-    height: 2
-  },
-  diagLine: {
-    width: 2,
-    top: 0,
-    left: '50%'
-  }
-});
+import { Animated } from 'react-native';
+import { BoardResult } from '@utils';
+import styles from './board-line.styles';
 
 type BoardLineProps = {
   size: number;
@@ -42,8 +25,8 @@ export default function BoardLine({ size, gameResult }: BoardLineProps): ReactEl
       {gameResult && gameResult.column && gameResult.direction === 'V' && (
         <Animated.View
           style={[
-            style.line,
-            style.vertLine,
+            styles.line,
+            styles.vertLine,
             {
               //prettier-ignore
               left: `${((gameResult.column / 3) - (1 / 6)) * 100}%`,
@@ -58,8 +41,8 @@ export default function BoardLine({ size, gameResult }: BoardLineProps): ReactEl
       {gameResult && gameResult.row && gameResult.direction === 'H' && (
         <Animated.View
           style={[
-            style.line,
-            style.horizLine,
+            styles.line,
+            styles.horizLine,
             {
               //prettier-ignore
               top: `${((gameResult.row / 3) - (1 / 6)) * 100}%`,
@@ -74,8 +57,8 @@ export default function BoardLine({ size, gameResult }: BoardLineProps): ReactEl
       {gameResult && gameResult.diagonal && gameResult.direction === 'D' && (
         <Animated.View
           style={[
-            style.line,
-            style.diagLine,
+            styles.line,
+            styles.diagLine,
             {
               height: lineAnimationRef.current.interpolate({
                 inputRange: [0, 1],

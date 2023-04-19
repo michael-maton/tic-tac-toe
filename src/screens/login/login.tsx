@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef, useState } from 'react';
-import { ScrollView, TextInput as NativeTextInput, Alert } from 'react-native';
-import { GradientBackground, TextInput, Button } from '@components';
+import { ScrollView, TextInput as NativeTextInput, Alert, TouchableOpacity } from 'react-native';
+import { GradientBackground, TextInput, Button, Text } from '@components';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackNavigatorParams } from '@config/navigator';
 import styles from './login.styles';
@@ -61,6 +61,9 @@ export default function Login({ navigation }: LoginProps): ReactElement {
           returnKeyType='done'
         />
         <Button loading={loading} title='Login' onPress={login} />
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.registerLink}>Don&apos;t have an account?</Text>
+        </TouchableOpacity>
       </ScrollView>
     </GradientBackground>
   );

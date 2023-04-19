@@ -44,10 +44,10 @@ export default function AppBootstrap({ children }: AppBootstrapProps): ReactElem
           break;
       }
     }
-    Hub.listen('auth', hubListener);
+    const listener = Hub.listen('auth', hubListener);
 
     return () => {
-      Hub.remove('auth', hubListener);
+      listener(); // Call the result of Hub.listen to remove the listener
     };
   }, []);
 

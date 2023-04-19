@@ -29,7 +29,7 @@ export default function Login({ navigation }: LoginProps): ReactElement {
       await Auth.signIn(username, password);
       navigation.navigate('Home');
     } catch (e) {
-      Alert.alert(e.message ?? 'An error has occurred during login.');
+      Alert.alert('An error has occurred during login.');
     }
     setLoading(false);
   };

@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     borderColor: colors.lightestBlue,
     backgroundColor: colors.blue,
     padding: 10,
-    color: colors.lightBlue,
+    color: colors.lightestBlue,
+    fontSize: 16,
     fontFamily: 'Inter_400Regular'
   }
 });

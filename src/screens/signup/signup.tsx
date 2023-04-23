@@ -44,7 +44,7 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
     setLoading(true);
     const { name, username, email, password } = form;
     try {
-      const res = await Auth.signUp({
+      await Auth.signUp({
         username,
         password,
         attributes: {
@@ -52,7 +52,6 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
           name
         }
       });
-      // navigation.navigate('Home');
       setStep('otpVerification');
       Alert.alert('A verification code has been sent to your email.');
     } catch (e) {
@@ -91,6 +90,7 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
                   // placeholderCharacter='0'
                   placeholderTextColor={colors.lightBlue}
                   pinCount={6}
+                  autoFocusOnLoad
                   codeInputFieldStyle={styles.otpBox}
                   codeInputHighlightStyle={styles.otpActiveBox}
                   onCodeFilled={code => {

@@ -32,7 +32,7 @@ export default function AppBootstrap({ children }: AppBootstrapProps): ReactElem
 
     function hubListener(hubData: any) {
       const { data, event } = hubData.payload;
-      console.log(data);
+      // console.log(data);
       switch (event) {
         case 'signOut':
           setUser(null);

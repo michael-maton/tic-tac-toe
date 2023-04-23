@@ -7,11 +7,10 @@ export const printFormattedBoard = (state: BoardState): void => {
     formattedString += cell ? ` ${cell} |` : '   |';
     if ((idx + 1) % 3 === 0) {
       formattedString = formattedString.slice(0, -1);
-      if (idx < 8)
-        formattedString += '\n\u2015\u2015\u2015 \u2015\u2015\u2015 \u2015\u2015\u2015\n';
+      if (idx < 8) formattedString += '\n\u2015\u2015\u2015 \u2015\u2015\u2015 \u2015\u2015\u2015\n';
     }
   });
-  console.log(formattedString);
+  // console.log(formattedString);
 };
 
 export const isEmpty = (state: BoardState): boolean => {

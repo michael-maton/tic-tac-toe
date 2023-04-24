@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import {
   ScrollView,
   TextInput as NativeTextInput,
@@ -11,6 +11,7 @@ import {
 import { GradientBackground, TextInput, Button, Text } from '@components';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useHeaderHeight } from '@react-navigation/elements';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigatorParams } from '@config/navigator';
 import { Auth } from 'aws-amplify';
 import OTPInput from '@twotalltotems/react-native-otp-input';
@@ -19,15 +20,17 @@ import { colors } from '@utils';
 
 type SignUpProps = {
   navigation: StackNavigationProp<StackNavigatorParams, 'SignUp'>;
+  route: RouteProp<StackNavigatorParams, 'SignUp'>;
 };
 
-export default function SignUp({ navigation }: SignUpProps): ReactElement {
+export default function SignUp({ navigation, route }: SignUpProps): ReactElement {
+  const unconfirmedUsername = route.params?.username;
   const headerHeight = useHeaderHeight();
   const passwordRef = useRef<NativeTextInput | null>(null);
   const emailRef = useRef<NativeTextInput | null>(null);
   const usernameRef = useRef<NativeTextInput | null>(null);
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState<'signUp' | 'otpVerification'>('signUp');
+  const [step, setStep] = useState<'signUp' | 'otpVerification'>(unconfirmedUsername ? 'otpVerification' : 'signUp');
   const [confirming, setConfirming] = useState(false);
   const [resending, setResending] = useState(false);
 
@@ -65,7 +68,7 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
   const confirmCode = async (code: string) => {
     setConfirming(true);
     try {
-      await Auth.confirmSignUp(form.username, code);
+      await Auth.confirmSignUp(form.username || unconfirmedUsername || '', code);
       navigation.navigate('Login');
       Alert.alert('Your account has been verified.');
     } catch (e) {
@@ -85,6 +88,10 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
 
     setResending(false);
   };
+
+  useEffect(() => {
+    if (unconfirmedUsername) resendCode(unconfirmedUsername);
+  }, []);
 
   return (
     <GradientBackground>
@@ -115,7 +122,12 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
                   {resending ? (
                     <ActivityIndicator color={colors.lightBlue} />
                   ) : (
-                    <TouchableOpacity onPress={() => resendCode(form.username)}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (form.username) resendCode(form.username);
+                        if (unconfirmedUsername) resendCode(unconfirmedUsername);
+                      }}
+                    >
                       <Text style={styles.resendText}>Resend Code</Text>
                     </TouchableOpacity>
                   )}

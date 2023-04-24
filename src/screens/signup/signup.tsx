@@ -5,7 +5,8 @@ import {
   Alert,
   ActivityIndicator,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 import { GradientBackground, TextInput, Button, Text } from '@components';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -28,6 +29,7 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<'signUp' | 'otpVerification'>('signUp');
   const [confirming, setConfirming] = useState(false);
+  const [resending, setResending] = useState(false);
 
   const [form, setForm] = useState({
     username: '',
@@ -72,6 +74,18 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
     setConfirming(false);
   };
 
+  const resendCode = async (username: string) => {
+    setResending(true);
+
+    try {
+      await Auth.resendSignUp(username);
+    } catch (e) {
+      Alert.alert('An error has occurred.');
+    }
+
+    setResending(false);
+  };
+
   return (
     <GradientBackground>
       <KeyboardAvoidingView
@@ -86,17 +100,26 @@ export default function SignUp({ navigation }: SignUpProps): ReactElement {
               {confirming ? (
                 <ActivityIndicator color={colors.lightBlue} />
               ) : (
-                <OTPInput
-                  // placeholderCharacter='0'
-                  placeholderTextColor={colors.lightBlue}
-                  pinCount={6}
-                  autoFocusOnLoad
-                  codeInputFieldStyle={styles.otpBox}
-                  codeInputHighlightStyle={styles.otpActiveBox}
-                  onCodeFilled={code => {
-                    confirmCode(code);
-                  }}
-                />
+                <>
+                  <OTPInput
+                    // placeholderCharacter='0'
+                    placeholderTextColor={colors.lightBlue}
+                    pinCount={6}
+                    autoFocusOnLoad
+                    codeInputFieldStyle={styles.otpBox}
+                    codeInputHighlightStyle={styles.otpActiveBox}
+                    onCodeFilled={code => {
+                      confirmCode(code);
+                    }}
+                  />
+                  {resending ? (
+                    <ActivityIndicator color={colors.lightBlue} />
+                  ) : (
+                    <TouchableOpacity onPress={() => resendCode(form.username)}>
+                      <Text style={styles.resendText}>Resend Code</Text>
+                    </TouchableOpacity>
+                  )}
+                </>
               )}
             </>
           )}

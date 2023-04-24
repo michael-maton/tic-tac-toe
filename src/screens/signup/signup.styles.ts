@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
   },
   otpInstruction: {
     color: colors.lightestBlue
+  },
+  resendText: {
+    color: colors.lightBlue,
+    textAlign: 'center',
+    marginTop: 10,
+    textDecorationLine: 'underline'
   }
 });
 

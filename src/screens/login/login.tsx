@@ -59,7 +59,7 @@ export default function Login({ navigation }: LoginProps): ReactElement {
           onChangeText={value => {
             onUpdateForm('password', value);
           }}
-          style={{ marginBottom: 20 }}
+          style={{ marginBottom: 10 }}
           ref={passwordRef}
           secureTextEntry
           placeholder='Password'

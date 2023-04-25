@@ -5,9 +5,17 @@ import styles from './settings.styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@utils';
 import { difficulty, useSettings } from '@contexts/settings-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigatorParams } from '@config/navigator';
+import { useAuth } from '@contexts/auth-context';
 
-export default function Settings(): ReactElement | null {
+type SettingsProps = {
+  navigation: StackNavigationProp<StackNavigatorParams, 'Settings'>;
+};
+
+export default function Settings({ navigation }: SettingsProps): ReactElement | null {
   const { settings, saveSetting } = useSettings();
+  const { user } = useAuth();
   if (!settings) return null;
 
   return (
@@ -24,8 +32,7 @@ export default function Settings(): ReactElement | null {
                     style={[
                       styles.choice,
                       {
-                        backgroundColor:
-                          settings.difficulty === level ? colors.darkBlue : colors.lightestBlue
+                        backgroundColor: settings.difficulty === level ? colors.darkBlue : colors.lightestBlue
                       }
                     ]}
                     key={level}
@@ -34,8 +41,7 @@ export default function Settings(): ReactElement | null {
                       style={[
                         styles.choiceText,
                         {
-                          color:
-                            settings.difficulty === level ? colors.lightestBlue : colors.darkBlue
+                          color: settings.difficulty === level ? colors.lightestBlue : colors.darkBlue
                         }
                       ]}
                     >
@@ -73,6 +79,11 @@ export default function Settings(): ReactElement | null {
               onValueChange={() => saveSetting('haptics', !settings.haptics)}
             />
           </View>
+          {user && (
+            <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')}>
+              <Text style={styles.changePasswordLink}>Change password</Text>
+            </TouchableOpacity>
+          )}
         </SafeAreaView>
       </ScrollView>
     </GradientBackground>

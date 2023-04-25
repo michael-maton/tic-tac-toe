@@ -65,6 +65,9 @@ export default function Login({ navigation }: LoginProps): ReactElement {
           placeholder='Password'
           returnKeyType='done'
         />
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.forgotPasswordLink}>Forgot password?</Text>
+        </TouchableOpacity>
         <Button loading={loading} title='Login' onPress={login} />
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.registerLink}>Don&apos;t have an account?</Text>

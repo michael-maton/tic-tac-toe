@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     textDecorationLine: 'underline'
+  },
+  forgotPasswordLink: {
+    color: colors.lightBlue,
+    textAlign: 'right',
+    marginTop: 10,
+    textDecorationLine: 'underline'
   }
 });
 

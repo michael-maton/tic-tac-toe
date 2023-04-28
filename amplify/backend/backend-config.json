@@ -1,0 +1,58 @@
+{
+  "api": {
+    "tictactoe": {
+      "dependsOn": [
+        {
+          "attributes": ["UserPoolId"],
+          "category": "auth",
+          "resourceName": "tictactoed5752768"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2023-05-05T02:10:16.851Z",
+                "apiKeyExpirationDays": 7,
+                "description": "test"
+              },
+              "authenticationType": "API_KEY"
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authtictactoed5752768"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "tictactoed5752768": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": ["SMS"],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": ["EMAIL", "NAME"],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": ["EMAIL"]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  }
+}

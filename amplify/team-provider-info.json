@@ -17,6 +17,12 @@
       },
       "api": {
         "tictactoe": {}
+      },
+      "function": {
+        "addUserToDynamo": {
+          "deploymentBucketName": "amplify-tictactoe-dev-170620-deployment",
+          "s3Key": "amplify-builds/addUserToDynamo-3352756235427267556b-build.zip"
+        }
       }
     }
   }

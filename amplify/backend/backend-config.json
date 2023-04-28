@@ -54,5 +54,42 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "function": {
+    "addUserToDynamo": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": ["GraphQLAPIIdOutput", "GraphQLAPIEndpointOutput"],
+          "category": "api",
+          "resourceName": "tictactoe"
+        },
+        {
+          "attributes": ["GraphQLAPIIdOutput", "GraphQLAPIEndpointOutput", "GraphQLAPIKeyOutput"],
+          "category": "api",
+          "resourceName": "tictactoe"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_addUserToDynamo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserToDynamo"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUserToDynamo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserToDynamo"
+        }
+      ]
+    }
   }
 }

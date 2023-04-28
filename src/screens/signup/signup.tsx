@@ -35,10 +35,10 @@ export default function SignUp({ navigation, route }: SignUpProps): ReactElement
   const [resending, setResending] = useState(false);
 
   const [form, setForm] = useState({
-    username: '',
-    email: '',
-    name: '',
-    password: ''
+    username: 'abcd',
+    email: 'matonmichaelj@gmail.com',
+    name: '1',
+    password: '12345678'
   });
 
   const onUpdateForm = (key: keyof typeof form, value: string) => {
@@ -60,7 +60,9 @@ export default function SignUp({ navigation, route }: SignUpProps): ReactElement
       setStep('otpVerification');
       Alert.alert('A verification code has been sent to your email.');
     } catch (e) {
-      Alert.alert('An error has occurred during sign up.');
+      console.log(e);
+      console.log(e.message);
+      Alert.alert(e.message || 'An error has occurred during sign up.');
     }
     setLoading(false);
   };
@@ -72,7 +74,9 @@ export default function SignUp({ navigation, route }: SignUpProps): ReactElement
       navigation.navigate('Login');
       Alert.alert('Your account has been verified.');
     } catch (e) {
-      Alert.alert('An error has occurred during verification.');
+      console.log(e);
+      console.log(e.message);
+      Alert.alert(e.message || 'An error has occurred during verification.');
     }
     setConfirming(false);
   };
@@ -83,7 +87,9 @@ export default function SignUp({ navigation, route }: SignUpProps): ReactElement
     try {
       await Auth.resendSignUp(username);
     } catch (e) {
-      Alert.alert('An error has occurred.');
+      console.log(e);
+      console.log(e.message);
+      Alert.alert(e.message || 'An error has occurred.');
     }
 
     setResending(false);

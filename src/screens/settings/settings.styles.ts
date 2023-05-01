@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  changePasswordLink: {
+    color: colors.lightestBlue,
+    textAlign: 'left',
+    marginBottom: 20,
+    textDecorationLine: 'underline',
+    fontSize: 22
   }
 });
 

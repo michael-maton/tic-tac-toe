@@ -7,7 +7,7 @@ export type AmplifyDependentResourcesAttributes = {
     };
   };
   auth: {
-    tictactoea22b7de0: {
+    tictactoed5752768: {
       AppClientID: 'string';
       AppClientIDWeb: 'string';
       IdentityPoolId: 'string';
@@ -15,6 +15,15 @@ export type AmplifyDependentResourcesAttributes = {
       UserPoolArn: 'string';
       UserPoolId: 'string';
       UserPoolName: 'string';
+    };
+  };
+  function: {
+    addUserToDynamo: {
+      Arn: 'string';
+      LambdaExecutionRole: 'string';
+      LambdaExecutionRoleArn: 'string';
+      Name: 'string';
+      Region: 'string';
     };
   };
 };

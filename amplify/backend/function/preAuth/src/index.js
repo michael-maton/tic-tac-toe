@@ -28,6 +28,14 @@ exports.handler = async (event, context, callback) => {
     disableOffline: true
   });
 
+  const query = gql`
+    query getUser($username: String!) {
+      getUser(username: $username) {
+        id
+      }
+    }
+  `;
+
   const mutation = gql`
     mutation createUser($name: String!, $cognitoID: String!, $username: String!, $email: AWSEmail!) {
       createUser(input: { cognitoID: $cognitoID, email: $email, name: $name, username: $username }) {
@@ -37,16 +45,31 @@ exports.handler = async (event, context, callback) => {
   `;
 
   try {
-    await graphqlClient.mutate({
-      mutation,
+    const res = await graphqlClient.query({
+      query,
       variables: {
-        name: event.request.userAttributes.name,
-        username: event.userName,
-        cognitoID: event.request.userAttributes.sub,
-        email: event.request.userAttributes.email
+        username: event.userName
       }
     });
-    callback(null, event);
+
+    if (res.data.getUser) {
+      callback(null, event);
+    } else {
+      try {
+        await graphqlClient.mutate({
+          mutation,
+          variables: {
+            name: event.request.userAttributes.name,
+            username: event.userName,
+            cognitoID: event.request.userAttributes.sub,
+            email: event.request.userAttributes.email
+          }
+        });
+        callback(null, event);
+      } catch (e) {
+        callback(e);
+      }
+    }
   } catch (e) {
     callback(e);
   }

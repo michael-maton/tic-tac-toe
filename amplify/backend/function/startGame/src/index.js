@@ -11,7 +11,6 @@ Amplify Params - DO NOT EDIT */
  */
 const appsync = require('aws-appsync');
 const gql = require('graphql-tag');
-// const { Expo } = require('expo-server-sdk');
 require('cross-fetch/polyfill');
 
 const credentials = process.env.AWS_EXECUTION_ENV.endsWith('mock')
@@ -102,7 +101,7 @@ exports.handler = async event => {
     }
   });
 
-  //   // 3. Linking the Game with the Users (by creating a MultiplayerGame model)
+  // 3. Linking the Game with the Users (by creating a MultiplayerGame model)
   const multiplayerGameMutation = gql`
     mutation createMultiplayerGame($gameID: ID!, $userUsername: String!, $users: [String!]!) {
       createMultiplayerGame(input: { gameID: $gameID, userUsername: $userUsername, users: $users }) {

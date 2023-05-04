@@ -5,15 +5,7 @@
 # } # FOR TESTING ONLY!
 type Mutation {
   startGame(invitee: String!): GameData @function(name: "startGame-${env}") @aws_iam @aws_cognito_user_pools
-
-  # playMove(game: ID!, index: Int!): GameData @function(name: "playMove-${env}") @aws_cognito_user_pools
-
-  # addExpoToken(token: String!): ExpoToken @function(name: "addExpoToken-${env}") @aws_cognito_user_pools
 }
-
-# type Subscription {
-#   onUpdateGameById(id: ID!): Game @aws_subscribe(mutations: ["updateGame"]) @aws_cognito_user_pools
-# }
 
 type GameData {
   id: ID!
@@ -87,23 +79,3 @@ enum GameSymbol {
   x
   o
 }
-
-# type ExpoToken
-#   @model
-#   @auth(
-#     rules: [
-#       { allow: owner, ownerField: "userUsername", operations: [read, delete] }
-#       { allow: private, provider: iam, operations: [read, create, update, delete] }
-#     ]
-#   ) {
-#   id: ID!
-#   token: String! @primaryKey
-#   userUsername: String! @index(name: "byGame")
-# }
-
-# type ExpoTicketsObject
-#   @model
-#   @auth(rules: [{ allow: private, provider: iam, operations: [read, create, update, delete] }]) {
-#   id: ID!
-#   tickets: AWSJSON!
-# }

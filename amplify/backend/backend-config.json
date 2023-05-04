@@ -13,7 +13,7 @@
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2023-05-05T02:10:16.851Z",
+                "apiKeyExpirationDate": "2023-05-09T21:03:59.345Z",
                 "apiKeyExpirationDays": 7,
                 "description": "test"
               },
@@ -84,6 +84,18 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "startGame": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": ["GraphQLAPIIdOutput", "GraphQLAPIEndpointOutput", "GraphQLAPIKeyOutput"],
+          "category": "api",
+          "resourceName": "tictactoe"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -116,6 +128,22 @@
         {
           "category": "function",
           "resourceName": "preAuth"
+        }
+      ]
+    },
+    "AMPLIFY_function_startGame_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "startGame"
+        }
+      ]
+    },
+    "AMPLIFY_function_startGame_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "startGame"
         }
       ]
     }

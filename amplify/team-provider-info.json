@@ -21,11 +21,15 @@
       "function": {
         "addUserToDynamo": {
           "deploymentBucketName": "amplify-tictactoe-dev-170620-deployment",
-          "s3Key": "amplify-builds/addUserToDynamo-595a64764730674a4948-build.zip"
+          "s3Key": "amplify-builds/addUserToDynamo-787a3867526e62696434-build.zip"
         },
         "preAuth": {
           "deploymentBucketName": "amplify-tictactoe-dev-170620-deployment",
           "s3Key": "amplify-builds/preAuth-68515a5a6b6530305077-build.zip"
+        },
+        "startGame": {
+          "deploymentBucketName": "amplify-tictactoe-dev-170620-deployment",
+          "s3Key": "amplify-builds/startGame-343438797a7167365664-build.zip"
         }
       }
     }

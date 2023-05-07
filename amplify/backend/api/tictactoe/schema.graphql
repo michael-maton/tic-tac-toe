@@ -5,6 +5,8 @@
 # } # FOR TESTING ONLY!
 type Mutation {
   startGame(invitee: String!): GameData @function(name: "startGame-${env}") @aws_iam @aws_cognito_user_pools
+
+  makeMove(game: ID!, index: Int!): GameData @function(name: "makeMove-${env}") @aws_cognito_user_pools
 }
 
 type GameData {

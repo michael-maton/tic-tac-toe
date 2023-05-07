@@ -366,6 +366,22 @@ export type StartGameMutation = {
   } | null;
 };
 
+export type MakeMoveMutationVariables = {
+  game: string;
+  index: number;
+};
+
+export type MakeMoveMutation = {
+  makeMove?: {
+    __typename: 'GameData';
+    id: string;
+    status: GameStatus;
+    turn: string;
+    state: Array<GameSymbol | null>;
+    winner?: string | null;
+  } | null;
+};
+
 export type CreateUserMutationVariables = {
   input: CreateUserInput;
   condition?: ModelUserConditionInput | null;

@@ -127,6 +127,22 @@
         }
       ]
     },
+    "AMPLIFY_function_makeMove_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "makeMove"
+        }
+      ]
+    },
+    "AMPLIFY_function_makeMove_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "makeMove"
+        }
+      ]
+    },
     "AMPLIFY_function_preAuth_deploymentBucketName": {
       "usedBy": [
         {

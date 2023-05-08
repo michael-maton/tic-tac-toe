@@ -113,8 +113,8 @@ exports.handler = async event => {
     console.log('Cell is already occupied.');
     throw new Error('Cell is already occupied.');
   } else if (cell > 8) {
-    console.log('Invalid index.');
-    throw new Error('Invalid index.');
+    console.log('Invalid move.');
+    throw new Error('Invalid move.');
   }
 
   // 5. Update the state, check if the move is a terminal move, & update winner, status, turn, state
@@ -143,7 +143,7 @@ exports.handler = async event => {
     variables: {
       id: gameID,
       status: updatedStatus,
-      state: updatedStatus,
+      state: updatedState,
       turn: nextPlayer,
       winner: winner,
       user: user

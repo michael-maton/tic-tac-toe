@@ -6,7 +6,7 @@ $util.qr($ctx.stash.put("hasAuth", true))
 
 #end
 #if( $util.authType() == "IAM Authorization" )
-  #set( $adminRoles = ["addUserToDynamo-dev","preAuth-dev"] )
+  #set( $adminRoles = ["addUserToDynamo-dev","makeMove-dev","preAuth-dev","startGame-dev","arn:aws:sts::977623906048:iamadmin","arn:aws:sts::977623906048:user","arn:aws:sts::977623906048:ttt-general","arn:aws:sts::977623906048:root","root","arn:aws:iam::977623906048:user/iamadmin","iamadmin"] )
   #foreach( $adminRole in $adminRoles )
     #if( $ctx.identity.userArn.contains($adminRole) && $ctx.identity.userArn != $ctx.stash.authRole && $ctx.identity.userArn != $ctx.stash.unauthRole )
       #return($util.toJson({}))

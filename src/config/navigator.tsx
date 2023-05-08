@@ -8,7 +8,7 @@ export type StackNavigatorParams = {
   Home: undefined;
   SinglePlayerGame: undefined;
   Settings: undefined;
-  Login: undefined;
+  Login: { redirect: keyof StackNavigatorParams } | undefined;
   SignUp: { username: string } | undefined;
   ChangePassword: undefined;
   ForgotPassword: undefined;

@@ -23,6 +23,7 @@ type GameData {
 
 type User
   @model
+  @searchable
   @auth(
     rules: [
       { allow: private, operations: [read] }

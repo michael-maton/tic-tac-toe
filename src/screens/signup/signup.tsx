@@ -35,10 +35,10 @@ export default function SignUp({ navigation, route }: SignUpProps): ReactElement
   const [resending, setResending] = useState(false);
 
   const [form, setForm] = useState({
-    username: '',
-    email: '',
-    name: '',
-    password: ''
+    username: 'abcd',
+    email: 'matonmichaelj@gmail.com',
+    name: '1',
+    password: '12345678'
   });
 
   const onUpdateForm = (key: keyof typeof form, value: string) => {

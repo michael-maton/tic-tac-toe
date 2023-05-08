@@ -47,7 +47,7 @@ exports.handler = async (event, context, callback) => {
       }
     });
     callback(null, event);
-  } catch (error) {
-    callback(error);
+  } catch (e) {
+    callback(e);
   }
 };

@@ -1,17 +1,88 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+# input AMPLIFY {
+#   globalAuthRule: AuthRule = { allow: public }
+# } # FOR TESTING ONLY!
+type Mutation {
+  startGame(invitee: String!): GameData @function(name: "startGame-${env}") @aws_iam @aws_cognito_user_pools
 
-type User @model @auth(
-        rules: [
-            { allow: private, operations: [read] }
-            { allow: owner, ownerField: "username", operations: [update] }
-            { allow: private, provider: iam, operations: [read, create, update, delete] }
-        ]
-    ) {
+  makeMove(game: ID!, index: Int!): GameData @function(name: "makeMove-${env}") @aws_cognito_user_pools
+}
+
+type Subscription {
+  onUpdateGameById(id: ID!): Game @aws_subscribe(mutations: ["updateGame"]) @aws_cognito_user_pools
+}
+
+type GameData {
+  id: ID!
+  status: GameStatus!
+  turn: String!
+  state: [GameSymbol]!
+  winner: String
+}
+
+type User
+  @model
+  @searchable
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: owner, ownerField: "username", operations: [update] }
+      { allow: private, provider: iam, operations: [read, create, update, delete] }
+    ]
+  ) {
   id: ID!
   cognitoID: String!
   username: String! @primaryKey
   name: String!
   email: AWSEmail!
+  games: [MultiplayerGame] @hasMany(indexName: "byUser", fields: ["username"])
+}
+
+type MultiplayerGame
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: private, provider: iam, operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  gameID: ID! @index(name: "byGame")
+  userUsername: String! @index(name: "byUser", sortKeyFields: ["createdAt"])
+  createdAt: String!
+  users: [String!]!
+  game: Game! @hasOne(fields: ["gameID"])
+  user: User! @hasOne(fields: ["userUsername"])
+}
+
+type Game
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: private, provider: iam, operations: [read, create, update, delete] }
+    ]
+  ) {
+  id: ID!
+  status: GameStatus!
+  users: [String!]!
+  owner: String!
+  turn: String!
+  state: [GameSymbol]!
+  winner: String
+  players: [MultiplayerGame] @hasMany(indexName: "byGame", fields: ["id"])
+}
+
+enum GameStatus {
+  REQUESTED
+  DECLINED
+  ACTIVE
+  FINISHED
+  CANCELED
+}
+
+enum GameSymbol {
+  x
+  o
 }

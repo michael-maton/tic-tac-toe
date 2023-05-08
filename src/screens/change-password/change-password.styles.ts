@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '@utils';
+import { colors, sharedStyles } from '@utils';
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
-    paddingVertical: 40
+    ...sharedStyles.container
   },
   text: {
     color: colors.lightestBlue,

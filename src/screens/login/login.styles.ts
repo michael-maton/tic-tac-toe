@@ -1,10 +1,10 @@
 import { colors } from '@utils';
 import { StyleSheet } from 'react-native';
+import { sharedStyles } from '@utils';
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
-    paddingVertical: 40
+    ...sharedStyles.container
   },
   registerLink: {
     color: colors.lightBlue,

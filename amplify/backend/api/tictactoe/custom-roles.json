@@ -1,0 +1,3 @@
+{
+  "adminRoleNames": ["arn:aws:iam::977623906048:user/iamadmin", "iamadmin"]
+}

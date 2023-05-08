@@ -2,6 +2,52 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onUpdateGameById = /* GraphQL */ `
+  subscription OnUpdateGameById($id: ID!) {
+    onUpdateGameById(id: $id) {
+      id
+      status
+      users
+      owner
+      turn
+      state
+      winner
+      players {
+        items {
+          id
+          gameID
+          userUsername
+          createdAt
+          users
+          game {
+            id
+            status
+            users
+            owner
+            turn
+            state
+            winner
+            createdAt
+            updatedAt
+          }
+          user {
+            id
+            cognitoID
+            username
+            name
+            email
+            createdAt
+            updatedAt
+          }
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
     onCreateUser(filter: $filter) {

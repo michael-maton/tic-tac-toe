@@ -1308,6 +1308,60 @@ export type ListGamesQuery = {
   } | null;
 };
 
+export type OnUpdateGameByIdSubscriptionVariables = {
+  id: string;
+};
+
+export type OnUpdateGameByIdSubscription = {
+  onUpdateGameById?: {
+    __typename: 'Game';
+    id: string;
+    status: GameStatus;
+    users: Array<string>;
+    owner: string;
+    turn: string;
+    state: Array<GameSymbol | null>;
+    winner?: string | null;
+    players?: {
+      __typename: 'ModelMultiplayerGameConnection';
+      items: Array<{
+        __typename: 'MultiplayerGame';
+        id: string;
+        gameID: string;
+        userUsername: string;
+        createdAt: string;
+        users: Array<string>;
+        game: {
+          __typename: 'Game';
+          id: string;
+          status: GameStatus;
+          users: Array<string>;
+          owner: string;
+          turn: string;
+          state: Array<GameSymbol | null>;
+          winner?: string | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        user: {
+          __typename: 'User';
+          id: string;
+          cognitoID: string;
+          username: string;
+          name: string;
+          email: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        updatedAt: string;
+      } | null>;
+      nextToken?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+};
+
 export type OnCreateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null;
 };

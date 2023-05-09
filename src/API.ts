@@ -107,3 +107,18 @@ export type GetUserQuery = {
     } | null,
   } | null,
 };
+
+export type onUpdateGameByIdSubscriptionVariables = {
+  id: string,
+};
+
+export type onUpdateGameByIdSubscription = {
+  onUpdateGameById?:  {
+    __typename: "Game",
+    id: string,
+    status: GameStatus,
+    state: Array< GameSymbol | null >,
+    turn: string,
+    winner?: string | null,
+  } | null,
+};

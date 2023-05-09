@@ -32,6 +32,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.gold,
     fontSize: 17
+  },
+  cardAnimation: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   }
 });
 

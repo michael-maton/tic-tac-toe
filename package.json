@@ -5,6 +5,7 @@
   "scripts": {
     "start": "expo start --port 30000",
     "startclean": "expo start -c",
+    "build": "tsc",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",

@@ -2,7 +2,7 @@ projects:
   tictactoe:
     schemaPath: amplify/backend/api/tictactoe/build/schema.graphql
     includes:
-      - src/graphql/**/*.ts
+      - src/**/*graphql.ts
     excludes:
       - ./amplify/**
     extensions:

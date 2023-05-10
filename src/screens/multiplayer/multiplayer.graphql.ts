@@ -30,6 +30,24 @@ export const getUser = gql`
   }
 `;
 
+export const searchUsers = gql`
+  query searchUsers($limit: Int, $nextToken: String, $searchString: String) {
+    searchUsers(
+      limit: $limit
+      nextToken: $nextToken
+      filter: {
+        or: [{ username: { matchPhrasePrefix: $searchString } }, { name: { matchPhrasePrefix: $searchString } }]
+      }
+    ) {
+      items {
+        name
+        username
+      }
+      nextToken
+    }
+  }
+`;
+
 export const onUpdateGameById = gql`
   subscription onUpdateGameById($id: ID!) {
     onUpdateGameById(id: $id) {

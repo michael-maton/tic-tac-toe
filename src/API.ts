@@ -67,6 +67,39 @@ export enum GameSymbol {
 }
 
 
+export type SearchableUserConnection = {
+  __typename: "SearchableUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableAggregateResult = {
+  __typename: "SearchableAggregateResult",
+  name: string,
+  result?: SearchableAggregateGenericResult | null,
+};
+
+export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
+
+
+export type SearchableAggregateScalarResult = {
+  __typename: "SearchableAggregateScalarResult",
+  value: number,
+};
+
+export type SearchableAggregateBucketResult = {
+  __typename: "SearchableAggregateBucketResult",
+  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
+};
+
+export type SearchableAggregateBucketResultItem = {
+  __typename: "SearchableAggregateBucketResultItem",
+  key: string,
+  doc_count: number,
+};
+
 export type GetUserQueryVariables = {
   username: string,
   limit: number,
@@ -105,6 +138,24 @@ export type GetUserQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+  } | null,
+};
+
+export type searchUsersQueryVariables = {
+  limit?: number | null,
+  nextToken?: string | null,
+  searchString?: string | null,
+};
+
+export type searchUsersQuery = {
+  searchUsers?:  {
+    __typename: "SearchableUserConnection",
+    items:  Array< {
+      __typename: "User",
+      name: string,
+      username: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 

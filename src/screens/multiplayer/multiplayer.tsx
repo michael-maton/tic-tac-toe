@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Alert, ActivityIndicator, View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import Modal from 'react-native-modal';
 import { Button, GradientBackground, Text } from '@components';
 import styles from './multiplayer.styles';
 import { useAuth } from '@contexts/auth-context';
@@ -9,6 +10,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api';
 import { GetUserQuery, MultiplayerGameType } from './multiplayer.graphql';
 import GameCard from './game-card';
+import NewGameModal from './new-game-modal/new-game-modal';
 
 export default function Multiplayer(): ReactElement {
   const { user } = useAuth();
@@ -16,6 +18,7 @@ export default function Multiplayer(): ReactElement {
   const [nextToken, setNextToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [newGameModalVisible, setNewGameModalVisible] = useState(false);
 
   const fetchUser = async (nextToken: string | null, init = false) => {
     if (user) {
@@ -90,7 +93,7 @@ export default function Multiplayer(): ReactElement {
               if (loading) {
                 return (
                   <View style={styles.loading}>
-                    <ActivityIndicator color={colors.blue} />
+                    <ActivityIndicator color={colors.lightBlue} />
                   </View>
                 );
               }
@@ -101,7 +104,11 @@ export default function Multiplayer(): ReactElement {
               );
             }}
           />
-          <TouchableOpacity style={styles.newGameButton}>
+          <TouchableOpacity
+            onPress={() => setNewGameModalVisible(true)}
+            style={styles.newGameButton}
+            activeOpacity={0.6}
+          >
             <Text style={styles.newGameText}>New Game</Text>
           </TouchableOpacity>
         </>
@@ -112,6 +119,20 @@ export default function Multiplayer(): ReactElement {
           </Text>
         </View>
       )}
+      <Modal
+        style={{ margin: 0 }}
+        isVisible={newGameModalVisible}
+        onSwipeComplete={() => setNewGameModalVisible(false)}
+        swipeDirection={['down']}
+        scrollOffset={100}
+        swipeThreshold={300}
+        backdropOpacity={0.75}
+        avoidKeyboard
+        onBackdropPress={() => setNewGameModalVisible(false)}
+        onBackButtonPress={() => setNewGameModalVisible(false)}
+      >
+        <NewGameModal />
+      </Modal>
     </GradientBackground>
   );
 }

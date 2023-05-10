@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors, sharedStyles } from '@utils';
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     textAlign: 'center',
-    color: colors.gold,
+    color: colors.lightestBlue,
     fontSize: 17,
     marginBottom: 10
   },
@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
   },
   newGameButton: {
     backgroundColor: colors.blue,
-    padding: 20,
-    paddingBottom: 30
+    padding: 30,
+    paddingBottom: Platform.OS === 'ios' ? 45 : 30
   },
   newGameText: {
     textAlign: 'center',
-    color: colors.gold,
-    fontSize: 17
+    color: colors.lightestBlue,
+    fontSize: 20
   },
   cardAnimation: {
     position: 'absolute',

@@ -4,7 +4,7 @@ import Text from '../text/text';
 import styles from './button.styles';
 
 type ButtonProps = {
-  title: string;
+  title: string | ReactElement;
   loading?: boolean;
 } & TouchableOpacityProps;
 

@@ -2,15 +2,18 @@ import React, { ReactElement, useRef, useState } from 'react';
 import { ScrollView, TextInput as NativeTextInput, Alert, TouchableOpacity } from 'react-native';
 import { GradientBackground, TextInput, Button, Text } from '@components';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigatorParams } from '@config/navigator';
 import styles from './login.styles';
 import { Auth } from 'aws-amplify';
 
 type LoginProps = {
   navigation: StackNavigationProp<StackNavigatorParams, 'Home'>;
+  route: RouteProp<StackNavigatorParams, 'Login'>;
 };
 
-export default function Login({ navigation }: LoginProps): ReactElement {
+export default function Login({ navigation, route }: LoginProps): ReactElement {
+  const redirect = route.params?.redirect;
   const passwordRef = useRef<NativeTextInput | null>(null);
   const [form, setForm] = useState({
     username: '',
@@ -27,7 +30,8 @@ export default function Login({ navigation }: LoginProps): ReactElement {
     const { username, password } = form;
     try {
       await Auth.signIn(username, password);
-      navigation.navigate('Home');
+      if (redirect) navigation.replace(redirect);
+      else navigation.navigate('Home');
     } catch (e) {
       console.log(e);
       if (e.code === 'UserNotConfirmedException') {

@@ -1,17 +1,29 @@
 import React, { ReactElement } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
-import { Home, SinglePlayerGame, Settings, Login, SignUp, ChangePassword, ForgotPassword } from '@screens';
+import {
+  Home,
+  SinglePlayerGame,
+  Settings,
+  Login,
+  SignUp,
+  ChangePassword,
+  ForgotPassword,
+  Multiplayer,
+  MultiplayerGame
+} from '@screens';
 import { colors } from '@utils';
 
 export type StackNavigatorParams = {
   Home: undefined;
   SinglePlayerGame: undefined;
   Settings: undefined;
-  Login: undefined;
+  Login: { redirect: keyof StackNavigatorParams } | undefined;
   SignUp: { username: string } | undefined;
   ChangePassword: undefined;
   ForgotPassword: undefined;
+  Multiplayer: undefined;
+  MultiplayerGame: { gameID: string; invitee?: undefined } | { invitee: string; gameID?: undefined };
 };
 
 const Stack = createStackNavigator<StackNavigatorParams>();
@@ -47,6 +59,8 @@ export default function Navigator(): ReactElement {
         <Stack.Screen name='SignUp' component={SignUp} options={{ title: 'Create an Account' }} />
         <Stack.Screen name='ChangePassword' component={ChangePassword} options={{ title: 'Change Password' }} />
         <Stack.Screen name='ForgotPassword' component={ForgotPassword} options={{ title: 'Reset Password' }} />
+        <Stack.Screen name='Multiplayer' component={Multiplayer} />
+        <Stack.Screen name='MultiplayerGame' options={{ headerShown: false }} component={MultiplayerGame} />
       </Stack.Navigator>
     </NavigationContainer>
   );

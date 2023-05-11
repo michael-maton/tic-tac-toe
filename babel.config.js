@@ -12,7 +12,8 @@ module.exports = function (api) {
             '@config': './src/config',
             '@contexts': './src/contexts',
             '@screens': './src/screens',
-            '@utils': './src/utils'
+            '@utils': './src/utils',
+            '@api': './src/API.ts'
           }
         }
       ]

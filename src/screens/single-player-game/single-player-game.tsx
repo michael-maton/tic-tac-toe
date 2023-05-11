@@ -142,7 +142,7 @@ export default function Game(): ReactElement {
             <Text style={styles.modalText}>
               {getWinner(gameResult.winner) === 'HUMAN' && 'You Won!'}
               {getWinner(gameResult.winner) === 'BOT' && 'You Lost!'}
-              {getWinner(gameResult.winner) === 'DRAW' && "It's a Draw"}
+              {getWinner(gameResult.winner) === 'DRAW' && 'Draw'}
             </Text>
             <Button onPress={() => newGame()} title='Play Again' />
           </View>

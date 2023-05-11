@@ -48,18 +48,6 @@ export const searchUsers = gql`
   }
 `;
 
-export const onUpdateGameById = gql`
-  subscription onUpdateGameById($id: ID!) {
-    onUpdateGameById(id: $id) {
-      id
-      status
-      state
-      turn
-      winner
-    }
-  }
-`;
-
 export type GetUserQuery = {
   getUser?: {
     __typename: 'User';

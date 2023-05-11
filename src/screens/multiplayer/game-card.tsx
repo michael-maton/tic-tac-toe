@@ -2,17 +2,22 @@ import React, { ReactElement, useEffect, useState, useRef } from 'react';
 import { Animated, TouchableOpacity } from 'react-native';
 import { useAuth } from '@contexts/auth-context';
 import { Text } from '@components';
-import { onUpdateGameById, MultiplayerGameType } from './multiplayer.graphql';
+import { onUpdateGameById } from '@utils';
+import { MultiplayerGameType } from './multiplayer.graphql';
 import styles from './multiplayer.styles';
 import { colors } from '@utils';
 import { API, graphqlOperation } from 'aws-amplify';
 import Observable from 'zen-observable';
 
-export default function GameCard({
-  multiplayerGame: multiplayerGameProp
-}: {
+type GameCardProps = {
   multiplayerGame: MultiplayerGameType;
-}): ReactElement | null {
+  onPress: () => void;
+};
+
+export default function GameCard({
+  multiplayerGame: multiplayerGameProp,
+  onPress
+}: GameCardProps): ReactElement | null {
   const { user } = useAuth();
   const [multiplayerGame, setMultiplayerGame] = useState(multiplayerGameProp);
   if (!user || !multiplayerGame) return null;
@@ -32,8 +37,6 @@ export default function GameCard({
 
     if (game.status !== 'FINISHED') return false;
     const opponent = fetchOpp(multiplayerGame);
-
-    console.log('OPP:', opponent);
 
     if (game.winner === user.username) return 'win';
     if (game.winner === opponent?.user.username) return 'loss';
@@ -83,14 +86,18 @@ export default function GameCard({
         }
       });
       return () => {
-        console.log('unsubscribing');
         subscription.unsubscribe();
       };
     }
   }, []);
 
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      onPress={() => {
+        onPress();
+      }}
+      style={styles.card}
+    >
       <Animated.View
         style={[
           styles.cardAnimation,

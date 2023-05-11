@@ -2,42 +2,6 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
-
-export type User = {
-  __typename: "User",
-  id: string,
-  cognitoID: string,
-  username: string,
-  name: string,
-  email: string,
-  games?: ModelMultiplayerGameConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelMultiplayerGameConnection = {
-  __typename: "ModelMultiplayerGameConnection",
-  items:  Array<MultiplayerGame | null >,
-  nextToken?: string | null,
-};
-
-export type MultiplayerGame = {
-  __typename: "MultiplayerGame",
-  id: string,
-  gameID: string,
-  userUsername: string,
-  createdAt: string,
-  users: Array< string >,
-  game: Game,
-  user: User,
-  updatedAt: string,
-};
-
 export type Game = {
   __typename: "Game",
   id: string,
@@ -64,6 +28,51 @@ export enum GameStatus {
 export enum GameSymbol {
   x = "x",
   o = "o",
+}
+
+
+export type ModelMultiplayerGameConnection = {
+  __typename: "ModelMultiplayerGameConnection",
+  items:  Array<MultiplayerGame | null >,
+  nextToken?: string | null,
+};
+
+export type MultiplayerGame = {
+  __typename: "MultiplayerGame",
+  id: string,
+  gameID: string,
+  userUsername: string,
+  createdAt: string,
+  users: Array< string >,
+  game: Game,
+  user: User,
+  updatedAt: string,
+};
+
+export type User = {
+  __typename: "User",
+  id: string,
+  cognitoID: string,
+  username: string,
+  name: string,
+  email: string,
+  games?: ModelMultiplayerGameConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type GameData = {
+  __typename: "GameData",
+  id: string,
+  status: GameStatus,
+  turn: string,
+  state: Array< GameSymbol | null >,
+  winner?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
 }
 
 
@@ -98,6 +107,61 @@ export type SearchableAggregateBucketResultItem = {
   __typename: "SearchableAggregateBucketResultItem",
   key: string,
   doc_count: number,
+};
+
+export type getGameQueryVariables = {
+  id: string,
+};
+
+export type getGameQuery = {
+  getGame?:  {
+    __typename: "Game",
+    id: string,
+    status: GameStatus,
+    users: Array< string >,
+    owner: string,
+    turn: string,
+    state: Array< GameSymbol | null >,
+    winner?: string | null,
+    players?:  {
+      __typename: "ModelMultiplayerGameConnection",
+      items:  Array< {
+        __typename: "MultiplayerGame",
+        user:  {
+          __typename: "User",
+          username: string,
+          name: string,
+        },
+      } | null >,
+    } | null,
+  } | null,
+};
+
+export type startGameMutationVariables = {
+  invitee: string,
+};
+
+export type startGameMutation = {
+  startGame?:  {
+    __typename: "GameData",
+    id: string,
+  } | null,
+};
+
+export type makeMoveMutationVariables = {
+  game: string,
+  index: number,
+};
+
+export type makeMoveMutation = {
+  makeMove?:  {
+    __typename: "GameData",
+    id: string,
+    status: GameStatus,
+    state: Array< GameSymbol | null >,
+    turn: string,
+    winner?: string | null,
+  } | null,
 };
 
 export type GetUserQueryVariables = {

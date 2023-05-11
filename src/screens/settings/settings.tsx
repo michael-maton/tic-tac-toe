@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import { View, ScrollView, TouchableOpacity, Switch } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Switch, SafeAreaView } from 'react-native';
 import { GradientBackground, Text } from '@components';
 import styles from './settings.styles';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@utils';
 import { difficulty, useSettings } from '@contexts/settings-context';
 import { StackNavigationProp } from '@react-navigation/stack';

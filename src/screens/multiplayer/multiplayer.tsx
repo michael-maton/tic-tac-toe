@@ -11,8 +11,16 @@ import { GraphQLResult } from '@aws-amplify/api';
 import { GetUserQuery, MultiplayerGameType } from './multiplayer.graphql';
 import GameCard from './game-card';
 import NewGameModal from './new-game-modal/new-game-modal';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigatorParams } from '@config/navigator';
 
-export default function Multiplayer(): ReactElement {
+// type MultiplayerNavigationProps = StackNavigationProp<StackNavigatorParams, 'Multiplayer'>;
+
+type MultiplayerProps = {
+  navigation: StackNavigationProp<StackNavigatorParams, 'Multiplayer'>;
+};
+
+export default function Multiplayer({ navigation }: MultiplayerProps): ReactElement {
   const { user } = useAuth();
   const [multiplayerGames, setMultiplayerGames] = useState<MultiplayerGameType[] | null>(null);
   const [nextToken, setNextToken] = useState<string | null>(null);
@@ -30,7 +38,7 @@ export default function Multiplayer(): ReactElement {
         const player = (await API.graphql(
           graphqlOperation(getUser, {
             username: user.username,
-            limit: 2,
+            limit: 10,
             sortDirection: 'DESC',
             nextToken: nextToken
           })
@@ -65,7 +73,18 @@ export default function Multiplayer(): ReactElement {
           <FlatList
             contentContainerStyle={styles.container}
             data={multiplayerGames}
-            renderItem={({ item }) => <GameCard multiplayerGame={item} />}
+            renderItem={({ item }) => (
+              <GameCard
+                onPress={() => {
+                  if (item?.game) {
+                    navigation.navigate('MultiplayerGame', {
+                      gameID: item?.game.id
+                    });
+                  }
+                }}
+                multiplayerGame={item}
+              />
+            )}
             keyExtractor={multiplayerGame => (multiplayerGame ? multiplayerGame?.game.id : `${new Date().getTime()}`)}
             refreshControl={
               <RefreshControl
@@ -131,7 +150,14 @@ export default function Multiplayer(): ReactElement {
         onBackdropPress={() => setNewGameModalVisible(false)}
         onBackButtonPress={() => setNewGameModalVisible(false)}
       >
-        <NewGameModal />
+        <NewGameModal
+          onItemPress={username => {
+            setNewGameModalVisible(false);
+            navigation.navigate('MultiplayerGame', {
+              invitee: username
+            });
+          }}
+        />
       </Modal>
     </GradientBackground>
   );

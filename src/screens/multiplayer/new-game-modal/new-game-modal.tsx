@@ -16,6 +16,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { searchUsers } from '../multiplayer.graphql';
 import { GraphQLResult } from '@aws-amplify/api';
 import { searchUsersQuery } from '@api';
+import { useAuth } from '@contexts/auth-context';
 
 type UsersType = Array<{
   __typename: 'User';
@@ -23,7 +24,12 @@ type UsersType = Array<{
   username: string;
 } | null>;
 
-export default function NewGameModal(): ReactElement {
+type newGameModalProps = {
+  onItemPress: (username: string) => void;
+};
+
+export default function NewGameModal({ onItemPress }: newGameModalProps): ReactElement {
+  const { user } = useAuth();
   const [search, setSearch] = useState('');
   const [submittedSearch, setSubmittedSearch] = useState('');
   const [foundUsers, setFoundUsers] = useState<UsersType | null>(null);
@@ -44,8 +50,8 @@ export default function NewGameModal(): ReactElement {
           searchString: searchString
         })
       )) as GraphQLResult<searchUsersQuery>;
-      if (users.data?.searchUsers?.items) {
-        setFoundUsers(users.data?.searchUsers?.items);
+      if (users.data?.searchUsers?.items && user) {
+        setFoundUsers(users.data?.searchUsers?.items.filter(u => u?.username !== user.username));
       }
     } catch (e) {
       console.log(e);
@@ -110,7 +116,15 @@ export default function NewGameModal(): ReactElement {
               contentContainerStyle={{ padding: 20 }}
               renderItem={({ item }) => {
                 return (
-                  <TouchableOpacity style={styles.cardContainer} activeOpacity={0.6}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (item) {
+                        onItemPress(item.username);
+                      }
+                    }}
+                    style={styles.cardContainer}
+                    activeOpacity={0.6}
+                  >
                     <Text style={styles.cardName}>{item?.name}</Text>
                     <Text style={styles.cardUsername}>{item?.username}</Text>
                   </TouchableOpacity>
